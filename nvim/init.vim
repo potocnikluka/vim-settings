@@ -28,6 +28,7 @@ set wildignore+=**/node_modules/** "ignore searching node modules
 set wildignore+=**/.git/** "ignore searching git folders
 set splitbelow "open new buffer below in normal split
 set splitright "open new buffer on the right in vertical split
+set timeoutlen=400 "Shorten timeout for key combinations
 "--------------------------------------------------------------------------  UI
 "set termguicolors "set gui colors
 set number "Show numbers on the side
@@ -51,7 +52,7 @@ set expandtab "Use spaces for indenting
 "------------------------------------------------------------------ SAVE / UNDO
 set nobackup "Do not automatically save
 set undofile "Allow undo after reoppening the file
-set undodir=~/.config/nvim/additions/undo "undo directory
+set undodir=~/.config/nvim/undo "undo directory
 "--------------------------------------------------------------------- MAPPINGS
 "map , as the <leader> key
 let mapleader=","
@@ -72,6 +73,7 @@ call plug#begin()
 Plug 'Yggdroot/indentLine'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 "______________________________________________________________________ GRUVBOX
 set background=dark
@@ -83,17 +85,21 @@ colorscheme gruvbox
 lua require'lspconfig'.tsserver.setup{
             \on_attach=require'completion'.on_attach
             \}
+"Install tsserver with :LspInstall tsserver
 lua require'lspconfig'.jsonls.setup{
             \on_attach=require'completion'.on_attach
             \}
+"Install json language server with :LspInstall jsonls
 lua require'lspconfig'.pyls.setup{
             \on_attach=require'completion'.on_attach
             \}
+"Install python language server with :!pip install python-language-server
 lua require'lspconfig'.jdtls.setup{
             \on_attach=require'completion'.on_attach
             \}
-"---------------------------------------------------------- AUTOFORMATE with ff
-nnoremap <silent>ff <cmd>lua vim.lsp.buf.formatting()<CR>
+"Install java language server with :LspInstall jdtls
+"--------------------------------------------------- AUTOFORMATE with <leader>f
+nnoremap <silent><leader>f <cmd>w<CR><cmd>lua vim.lsp.buf.formatting()<CR>
 "_________________________________________________________________ AUTOCOMPLETE
 "--------------------------------------------------- Scroll popup down with TAB
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -101,6 +107,8 @@ inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<TAB>"
 "------------------------------------------------------------ Select with enter
 inoremap <expr><CR> pumvisible() ? "<C-y>" : "\<CR>"
+"---------------------------------------------------------- Completion priority
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 "==============================================================================
 "------------------------------------------------------------------------------
 "                                                                        COLORS 
@@ -108,7 +116,9 @@ inoremap <expr><CR> pumvisible() ? "<C-y>" : "\<CR>"
 set termguicolors
 "__________________________________________________________________ CURSOR LINE
 set cursorline
-highlight CursorLine term=underline ctermbg=236 guibg=#32302f
+"set cursorcolumn
+highlight CursorLine ctermbg=236 guibg=#292727 gui=bold cterm=bold
+"highlight Cursorcolumn ctermbg=236 guibg=#181818 gui=bold cterm=bold
 "_____________________________________________________________ SYNTAX HIGHLIGHT
 highlight GruvboxRed guifg=#CD5C5C
 highlight GruvboxBlue guifg=#9AB5AB
@@ -255,6 +265,8 @@ augroup Netrw
     autocmd BufWinEnter *.*\|TODO\|./* if g:NetrwIsOpen
                 \ | call ToggleNetrw()
                 \ | endif
+    "----------------------------------------------- Close if last oppened file
+    autocmd bufenter * if (winnr("$") == 1 && &filetype =~ 'netrw') | q | endif
 augroup END
 "==============================================================================
 "------------------------------------------------------------------------------
@@ -356,6 +368,8 @@ command R if g:prog_buf
             \| endif
             \| w
             \| call Run_Program(50)
+"------------------------------- Close errorlist if it it the last oppened file
+autocmd bufenter * if (winnr("$") == 1 && &filetype=~'errorlist') | q | endif
 "==============================================================================
 "------------------------------------------------------------------------------
 "                                                    PARENTHESES AUTOCOMPLETION
@@ -388,13 +402,13 @@ let g:loaded_matchparen=1
 nnoremap <silent>classtofilename :let g:text=expand('%:t')
             \<CR>cw<C-r>=g:text<CR><Esc>_f.<S-d>a<space>{<ESC>
 
-nnoremap ,jav :-1read ~/.config/nvim/additions/snippets/main.java
+nnoremap ,jav :-1read ~/.config/nvim/snippets/main.java
             \<CR>2w:normal classtofilename<CR>jo
-nnoremap ,jas :-1read ~/.config/nvim/additions/snippets/mainWscanner.java
+nnoremap ,jas :-1read ~/.config/nvim/snippets/mainWscanner.java
             \<CR>2j2w:normal classtofilename<CR>2jo
-nnoremap ,is :-1read ~/.config/nvim/additions/snippets/intToString.java
+nnoremap ,is :-1read ~/.config/nvim/snippets/intToString.java
             \<CR>6wli
-nnoremap ,pl :-1read ~/.config/nvim/additions/snippets/println.java
+nnoremap ,pl :-1read ~/.config/nvim/snippets/println.java
             \<CR>5wli
 "==============================================================================
 "------------------------------------------------------------------------------

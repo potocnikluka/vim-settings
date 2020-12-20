@@ -17,10 +17,10 @@ Lately it has also been providing great features sooner than vim.
 ## Details
 
 ### Pluggins:
-Thise settings include a few lightweight plugins.
+These settings include a few lightweight plugins.
 
 * Implement LSP:
-   - nvim-lspconfig (https://github.com/neovim/nvim-lspconfig) - lightweight collection of common configurations for LSP.
+   - nvim-lspconfig (https://github.com/neovim/nvim-lspconfig) - collection of common configurations for LSP.
    - Completion-nvim (https://github.com/nvim-lua/completion-nvim) - auto completion framework for a better completion experience with LSP.
 * Other:
    - indentLine to make it prettier (https://github.com/Yggdroot/indentLine)
@@ -38,7 +38,7 @@ enhanced LSP tools.
    ```on_attach=require'completion'.on_attach```
    - Run :LspInstall <server-name> in editor (some servers need to be installed manually)
 
-See nvim-lspconfig repository for more lsp configuration information.
+See nvim-lspconfig repository for more configuration information.
 
 
 ### Snippets
@@ -48,7 +48,6 @@ You can easily create your own snippets with these settings:
    - In init.vim add code following the examples under SNIPPETS:
     ```nnoremap <your-key-mapping>:-1read ~/.config/nvim/additions/snippets/snippet-name.filetype```
    - You can add keys to remapping to move cursor to desired location when placing the snippet
-Set up compilers and compiling paths to suit your needs in init.vim under TERMINAL AND RUNNING THE PROGRAM.
 
 ### OTHER
 * Colortheme: Gruvbox(https://github.com/morhetz/gruvbox)
@@ -60,10 +59,11 @@ Set up compilers and compiling paths to suit your needs in init.vim under TERMIN
 
 * Toggle terminal with F4.
 * In editor, type :R to asynchronously run the program in the side split. Toggle the terminal running the program with Shift + e, if there is no nothing running Shift - e will run the program.
+* Set up compilers and compiling paths to suit your needs in init.vim under TERMINAL AND RUNNING THE PROGRAM.
 
 * Autocompletion for parentheses, press the sign twice to insert a single sign.
 
-* Netrw set up to perform similar to nerdtree. ( Create a new file with % and directory with d, rename or move with R and delete with D)
+* Netrw set up to perform similar to nerdtree. (Create a new file with % and directory with d, rename or move with R and delete with D)
 
 
 
