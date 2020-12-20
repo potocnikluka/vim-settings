@@ -17,9 +17,14 @@ Lately it has also been providing great features sooner than vim.
 ## Details
 
 ### Pluggins:
-These settings only use two lightweight plugins to implement neovim's built in LSP:
+Thise settings include a few lightweight plugins.
+
+* Implement LSP:
    - nvim-lspconfig (https://github.com/neovim/nvim-lspconfig) - lightweight collection of common configurations for LSP.
    - Completion-nvim (https://github.com/nvim-lua/completion-nvim) - auto completion framework for a better completion experience with LSP.
+* Other:
+   - indentLine to make it prettier (https://github.com/Yggdroot/indentLine)
+   - vim-fugitive (https://github.com/tpope/vim-fugitive) - git plugin for vim
 
 ### LSP
 Nvim supports the Language Server Protocol (LSP), which means it acts as
