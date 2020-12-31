@@ -6,13 +6,13 @@ It provides better plugin API than vim, better codebase and a great community.
 Lately it has also been providing great features sooner than vim.
     
 ## Prerequisites
-   - neovim v0.5
-   - git
+* neovim v0.5
+* git
 
 ## Configuration
-   - Replace local nvim folder (~/.config/nvim) with the folder from these settings
-   - in nvim run command ```:PlugInstall``` and restart the editor
-   - see Details for more on LSP and Snippets configuration
+* Replace local nvim folder (~/.config/nvim) with the folder from these settings
+* in nvim run command ```:PlugInstall``` and restart the editor
+* see Details for more on LSP and Snippets configuration
 
 ## Details
 
@@ -53,16 +53,16 @@ You can easily create your own snippets with these settings:
 * Added syntax highlight for basic groups
 
 * Statusline showing current mode, full file path, filetype, encoding, operating system, current column, current line, total lines, git branch and buffer number.
-* Tabline appears if there are at least two tabs.
-* Both statusline and tabline show + if the file has been edited.
+   - Tabline appears if there are at least two tabs.
+   - Both statusline and tabline show + if the file has been edited.
 
 * Toggle terminal with F4.
 * In editor, type :R to asynchronously run the program in the side split. Toggle the terminal running the program with Shift + e, if there is no nothing running Shift - e will run the program.
-* Set up compilers and compiling paths to suit your needs in init.vim under TERMINAL AND RUNNING THE PROGRAM.
+   - Set up compilers and compiling paths to suit your needs in init.vim under TERMINAL AND RUNNING THE PROGRAM.
 
 * Format current file with ",f".
-* By default formating will only indent the whole file.
-* To use a specific formater, add "'filetype': 'formater'" to g:formaters dictionary in init.vim under FORMATING.
+   - By default formating will only indent the whole file.
+   - To use a specific formater, add "'filetype': 'formater'" to g:formaters dictionary in init.vim under FORMATING.
 
 * Autocompletion for parentheses, press the sign twice to insert a single sign.
 
