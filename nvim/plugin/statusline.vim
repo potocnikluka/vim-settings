@@ -40,15 +40,14 @@ set laststatus=2
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}
 set statusline+=\ %1*\ %<%F%m%r%h%w
 set statusline+=\ %2*\ %Y
-set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}
-set statusline+=\ (%{&ff})
 set statusline+=\ %3*
 set statusline+=%=
 set statusline+=%2*\ col:\ %02v
 set statusline+=\ ln:\ %02l/%L
 set statusline+=\ %1*
 set statusline+=%{StatuslineGit()}
-set statusline+=\ %0*\ %-2n
+set statusline+=%0*\ %-2n
+autocmd FileType netrw\|nerdtree setlocal statusline=%3*\ %t\ %=\ %-2n
 
 "----------------------------------------------------------Tabline construction
 set guitablabel=\ %t\ %M\ %N

@@ -24,9 +24,11 @@ function! Term_toggle(width)
 		let g:term_win = win_getid()
 	endif
 endfunction
+
 "------------------------------------------------------ Toggle terminal with F4
-nnoremap <F4> :call Term_toggle(50)<cr>
-tnoremap <F4> <C-\><C-n>:call Term_toggle(50)<cr>
+nnoremap <silent><F4> :call Term_toggle(50)<cr>
+tnoremap <silent><F4> <C-\><C-n>:call Term_toggle(50)<cr>
+
 "------------------------------------------ Leave terminal insert mode with Esc
 tnoremap <Esc> <C-\><C-n>
 
@@ -42,6 +44,7 @@ let g:compilers = {
 let g:prog_buf = 0
 let g:prog_win = 0
 function! Run_Program(width)
+
 	"----------------- Toggle errorlist or run program if it doesn't exist
 	if has_key(g:compilers, &filetype)
 		let l:winnr=winnr()
@@ -74,14 +77,17 @@ function! Run_Program(width)
 		echo('Compiling is not set for this filetype.')
 	endif
 endfunction
+
 "---------------------------------------------- Toggle errorlist with SHIFT - E
 nnoremap <silent><S-e> :call Run_Program(50)<cr>
 tnoremap <silent><S-e> :call Run_Program(50)<cr>
+
 "----------------------------------- Run program with :R, replace one if exists
 command R if g:prog_buf
 			\| silent! execute 'bwipeout! '.g:prog_buf
 			\| endif
 			\| call Run_Program(50)
+
 "------------------------------- Close errorlist if it it the last oppened file
 autocmd bufenter * if (winnr("$") == 1 && &filetype=~'errorlist') | q | endif
 

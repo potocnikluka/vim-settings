@@ -10,8 +10,8 @@ It provides a better plugin API than vim, better codebase, a great community and
 ## Configuration
 * Replace local nvim folder with the folder from these settings.
 	- Type ```:echo stdpath('config')``` in the editor to get the path to your nvim directory.
-* in nvim run command ```:PlugInstall``` and restart the editor
 * see Details for more on LSP and Snippets configuration
+* Editor will automatically install pluggins on start. You can disable this by deleting the last lines in "init.vim" and manually install with ```:PlugInstall```.
 
 ## Details
 Neovim settings are split into multiple files. "init.vim" includes some basic settings and plugins, other settings are split into files in "nvim/plugin/".
@@ -22,6 +22,7 @@ These settings include 2 lightweight pluggins that implement neovim's built in L
 * nvim-lspconfig (https://github.com/neovim/nvim-lspconfig) - collection of common configurations for LSP.
 * Completion-nvim (https://github.com/nvim-lua/completion-nvim) - auto completion framework for a better completion experience with LSP.
 
+Vim-Plug is used for managing plugins(https://github.com/junegunn/vim-plug)
 ### LSP
 Nvim supports the Language Server Protocol (LSP), which means it acts as
 a client to LSP servers and includes a Lua framework `vim.lsp` for building
