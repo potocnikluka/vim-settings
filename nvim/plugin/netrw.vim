@@ -10,7 +10,6 @@ let g:netrw_browse_split = 4 "Open file on the right of the file browser
 let g:netrw_winsize = 15 "Size of netrw window
 let g:NetrwIsOpen = 0 "netrw oppened or not
 let g:netrw_altv=1 "Open splits to the right
-let g:netrw_silent=1
 
 
 "___________________________________________________ TOGGLE NETRW with Ctrl - n

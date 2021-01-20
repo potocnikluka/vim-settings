@@ -7,7 +7,7 @@
 let g:formaters = {
 			\'javascript': 'prettier',
 			\'typescript': 'prettier',
-			\'python': 'black' 
+			\'python': 'autopep8' 
 			\}
 function! Formate()
 	silent w	

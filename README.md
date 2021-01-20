@@ -10,7 +10,7 @@ It provides a better plugin API than vim, better codebase, a great community and
 ## Configuration
 * Replace local nvim folder with the folder from these settings.
 	- Type ```:echo stdpath('config')``` in the editor to get the path to your nvim directory.
-* see Details for more on LSP and Snippets configuration
+* see "Details" for more on LSP and Snippets configuration.
 * Editor will automatically install pluggins on start. You can disable this by deleting the last lines in "init.vim" and manually install with ```:PlugInstall```.
 
 ## Details
@@ -29,30 +29,33 @@ a client to LSP servers and includes a Lua framework `vim.lsp` for building
 enhanced LSP tools.
 
 * Adding language servers to LSP (look to "plugin/lsp.vim" for examples):
-	- Add the following code to "plugin/lsp.vim":
+
+- Add the following code to "plugin/lsp.vim":
 
 		```lua require'lspconfig'.<server-name>.setup{<settings>}```
 
-	- To allow autocompletion from server add the following setting to the code above:
+- To allow autocompletion from server add the following setting to the code above:
 
 		```on_attach=require'completion'.on_attach```
 
-	- Run ```:LspInstall <server-name>``` in editor (some servers need to be installed manually)
+- Run ```:LspInstall <server-name>``` in editor (some servers need to be installed manually)
 
-	  See nvim-lspconfig repository for more configuration information.
-
+	See nvim-lspconfig repository for more configuration information.
 
 ### Snippets
-You can easily create your own snippets with these settings:
+You can easily create your own snippets with these settings.
+
 * Create "snippet-name.filetype" file in "nvim/snippets/."
+
 * Add your snippet code to that file.
+
 * In "plugin/snippets.vim" implement the "g:snippets" dictionary with you snippet:
 
 	```let g:snippets = [['key-mapping', 'snippet-file-name', 'move-cursor-after']]```
 
 * Type ":Snippets" to see all the availible snippets.
 
-### OTHER
+### Other...
 * Colortheme: Gruvbox(https://github.com/morhetz/gruvbox)
 * Added syntax highlight for basic groups
 

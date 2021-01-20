@@ -55,7 +55,7 @@ function! Run_Program(width)
 			silent w
 			let l:compiler = g:compilers[&filetype][0]
 			let l:path = expand(g:compilers[&filetype][1])
-			vertical new
+			vertical new errorlist
 			exec "vertical resize " . a:width
 			try
 				exec "buffer " . g:prog_buf

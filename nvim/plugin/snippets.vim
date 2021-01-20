@@ -12,12 +12,16 @@ command! CTF let g:text=expand('%:t') |
 "________________________________________________________________ java snippets
 
 let g:snippets = [ 
-			\[',jm', 'main.java', 'o'],
-			\[',jis', 'intToString.java', '6wli'],
-			\[',jpl', 'println.java', '5wli'],
-			\[',jc', 'class.java', '2w:CTF<CR>o'],
-			\[',jcm', 'classMain.java', '2w:CTF<CR>jo'],
-			\[',jcms', 'classMainScanner.java', '2j2w:CTF<CR>2jo'],
+			\['<leader>jm',
+			\ 'main.java', 'o'],
+			\['<leader>jcm',
+			\ 'classMain.java', '2w:CTF<CR>jo'],
+			\['<leader>jcms',
+			\ 'classMainScanner.java', '2j2w:CTF<CR>2jo'],
+			\['<leader>jcmr',
+			\ 'classMainFastReader.java', '}j2w:CTF<CR>2}2jo'],
+			\['<leader>jcmb',
+			\ 'classMainBufferedReader.java', '}j2w:CTF<CR>4jo'],
 			\]
 for snippet in g:snippets  
 	execute 'nnoremap '.snippet[0].'

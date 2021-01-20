@@ -47,7 +47,11 @@ set statusline+=\ ln:\ %02l/%L
 set statusline+=\ %1*
 set statusline+=%{StatuslineGit()}
 set statusline+=%0*\ %-2n
-autocmd FileType netrw\|nerdtree setlocal statusline=%3*\ %t\ %=\ %-2n
+autocmd FileType netrw\|nerdtree setlocal statusline=%0*\ %t\ %=\ %-2n
+autocmd FileType errorlist setlocal statusline=%0*\ %Y\ %=\ %-2n
+autocmd TermEnter * 
+			\setlocal statusline=%0*\ %{toupper(g:currentmode[mode()])}|
+			\setlocal statusline+=%=\ %-2m
 
 "----------------------------------------------------------Tabline construction
 set guitablabel=\ %t\ %M\ %N

@@ -14,7 +14,6 @@ call plug#end()
 "                                                               BASIC BEHAVIOUR
 "==============================================================================
 
-
 syntax on
 filetype plugin indent on
 let g:nvimpath = stdpath('config') "path to nvim directory
@@ -83,24 +82,12 @@ nnoremap <leader>+ :vertical resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
 
 "----------------------------------------- Resize all windows to the same width
-function! Resize()
-	let windows = map(copy(getwininfo()), 'v:val.winnr')
-	let size = float2nr(round(
-				\str2float(&columns) / len(windows)))
-	let l:winnr = winnr()
-	for i in windows
-		execute i . 'wincmd p'
-		execute 'vertical resize '.size.''
-	endfor
-	execute l:winnr . 'wincmd p'
-	echo 'Resized all windows to '.size.'.'
-endfunction
-nnoremap <silent><leader>r :call Resize()<CR>
-
+nnoremap <silent><leader>r <C-W>=
+			\:echo 'Resized all windows to '.winwidth('$').''<CR>
 
 "_________________________________________________________ AUTO INSTALL PLUGINS
 
 autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
+			\  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+			\|   PlugInstall --sync | q
+			\| endif
