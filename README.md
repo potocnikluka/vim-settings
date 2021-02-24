@@ -56,15 +56,16 @@ You can easily create your own snippets with these settings.
 * In editor, type `:R` to asynchronously run the program in the side split. Toggle the terminal running the program with `Shift + e`.
 	- Set up `g:compilers` dictionary to suit your needss in `nvim/plugin/terminal.vim`:
 
-	```let g:compilers = {'filetype': ['compiler', 'path', ...'(optional) additional commands']}```
+	```let g:compilers = {'filetype': [<options>]}```
 
-	- Add ```'filetype': ['runner', 'path']``` to `g:runners` dictionary for filetypes such as C, Java,... So they are automatically run after compiling.
+	- Add ```'filetype': [<options>]``` to `g:runners` dictionary for filetypes such as C, Java,... So they are automatically run after compiling.
+	- As <options> you can specify for example compiler and path (`['javac', '%:p']`),... see examples `nvim/plugin/terminal.vim`.
 	- You can also all arguments to the `:R`. For example: `:R < input.txt`.
 
 
 * Format current file with `<space>f`.
 	- By default formating will only indent the whole file.
-	- To use a specific formater, add ```'filetype': 'formater'``` to `g:formaters` dictionary in `plugin/formating.vim`.
+	- To use a specific formater, add `'filetype': ['formater', 'settings']` to `g:formaters` dictionary in `plugin/formating.vim`.
 
 * Autocompletion for parentheses, press the sign twice to insert a single sign.
 

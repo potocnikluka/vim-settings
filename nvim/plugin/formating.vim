@@ -3,53 +3,42 @@
 "                                                                     FORMATING
 "==============================================================================
 
-
+"Define formatters for filetypes and settings 
 let g:formaters = {
-			\'javascript': 'prettier',
-			\'typescript': 'prettier',
-			\'python': 'autopep8' 
+			\'javascript': [ 'prettier', '\ --use-tabs\ --stdin-filepath\ %'],
+			\'typescript': [ 'prettier', '\ --use-tabs\ --stdin-filepath\ %'],
+			\'python': ['autopep8', '\ -'],
 			\}
-function! Formate()
+"save and format
+function! Format()
+	if &filetype =~ 'markdown\|text\|netrw\|nerdtree' 
+		return
+	endif
 	silent w	
 	"set mark z
 	normal mz
 	if has_key(g:formaters, &filetype)
+		"check if formater can be executed
+		if !executable(g:formaters[&filetype][0])
+			silent execute "normal gg=Gg'zw"
+			echo 'Could not execute '.g:formaters[&filetype][0].'
+						\, using default indenting.'
+			return 
+		endif
 		try 
-			if &filetype =~ 'typescript\|javascript'
-				execute 'setlocal equalprg='.g:formaters[&filetype].'
-							\\ --use-tabs\ --stdin-filepath\ %'
-			else
-				execute 'setlocal equalprg='.g:formaters[&filetype].'\ -'
-			endif
-			let l:lines = line('$')
+			execute 'setlocal equalprg='.g:formaters[&filetype][0].'
+						\'.g:formaters[&filetype][1].''
 			silent execute "normal gg=G"
 			execute 'setlocal equalprg=""'
 		finally "undo and use the default indenting if error occurs
-			"if the first line includes substring command not found
-			"the formater probably isn't installed
-			if stridx(getline('.'),
-						\ ''.g:formaters[&filetype].': command not found')
-						\ != -1
-				silent undo
-				execute "normal gg=G"
-				echo 'Could not format with '.g:formaters[&filetype].'
-							\, using default indenting.'
-				"if the first line or last line includes substring error
-				"send errors to cmd instead of formating
-			elseif stridx(getline('.'), 
+			if stridx(getline('.'), 
 						\ 'error')
 						\ != -1
 				let l:err = getline('.')
 				silent undo
 				echo l:err
-			elseif stridx(getline(l:lines + 1),
-						\ 'error')
-						\ != -1
-				let l:err = getline(l:lines + 1)
-				silent undo
-				echo l:err
 			else
-				echo 'formated with '.g:formaters[&filetype].''
+				echo 'formated with '.g:formaters[&filetype][0].''
 			endif
 		endtry
 	else
@@ -59,4 +48,5 @@ function! Formate()
 	normal g'z
 	silent w
 endfunction
-nnoremap <silent><leader>f :call Formate()<CR>
+
+nnoremap <silent><leader>f :call Format()<CR>

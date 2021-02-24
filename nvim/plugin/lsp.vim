@@ -7,19 +7,21 @@
 lua require'lspconfig'.tsserver.setup{
 			\on_attach=require'completion'.on_attach
 			\}
-"Install tsserver with :LspInstall tsserver
 lua require'lspconfig'.pyls.setup{
 			\on_attach=require'completion'.on_attach
 			\}
-"Install python language server with :!pip install python-language-server
 lua require'lspconfig'.jdtls.setup{
 			\on_attach=require'completion'.on_attach
 			\}
-"Install java language server with :LspInstall jdtls
 lua require'lspconfig'.clangd.setup{
 			\on_attach=require'completion'.on_attach
 			\}
-"Install clangd(c,cpp,objc,objcpp) https://clangd.llvm.org/installation.html
+lua require'lspconfig'.vimls.setup{
+			\on_attach=require'completion'.on_attach
+			\}
+
+"see installation guides on:
+"https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md 
 
 "-------------------------------------------------------------- lsp keybindings
 "jump to definition
