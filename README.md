@@ -10,13 +10,14 @@ These settings provide a comfortable neovim experience, with only 2 lightweight 
 ## Configuration
 * Replace local nvim folder with the folder from these settings.
 	- Type `:echo stdpath('config')` in the editor to get the path to your nvim directory (On linux usually `~/.config/nvim` and on windows usually `~/AppData/Local/nvim`).
-* Editor will automatically install plugins on start. You can disable this by deleting the last lines in `init.vim` and manually install with `:PlugInstall`.
+* Editor will automatically install plugins on start. You can disable this by deleting lines under plugins in `init.vim` and manually install with `:PlugInstall`.
+* See [config](docs/CONFIG.md) on how to configure formaters, interpreters and compilers for different filetypes, how to create snippets and add language servers.
 
 ## Details
-On start up, neovim first reads settings from `init.vim`, then it goes through the files in `nvim/plugin/`. 
-Therefore, I have included some basic settings in the init.vim file and split others into multiple files in the plugin folder.
+On start up, neovim first reads settings from `init.vim`, which contains plugins and filetype-specific configurations, 
+then it goes through other settings split into multiple files in `nvim/plugin` folder.
 
-See [details](DETAILS.md) for more information on the specific setting.
+See [details](docs/DETAILS.md) for more information on the specific file's contents.
 
 ### Pluggins
 * nvim-lspconfig (https://github.com/neovim/nvim-lspconfig) - collection of common configurations for LSP.
@@ -25,10 +26,11 @@ See [details](DETAILS.md) for more information on the specific setting.
 Plugins are managed with Vim-Plug (https://github.com/junegunn/vim-plug).
 - It is installed under `nvim/autoload`. If plugins are not installed on launch and command `:PlugInstall` does not exist, try reinstalling vim-plug from it's GitHub repository.
 
+
 ### LSP
 Nvim supports the Language Server Protocol (LSP), which means it acts as
 a client to LSP servers and includes a Lua framework `vim.lsp` for building
 enhanced LSP tools.
 
-* See https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md for details on adding language servers to LSP.
-	- Add the configuration code to `nvim/plugin/lsp.vim` following the examples.
+* See [details](docs/DETAILS.md) and [config](docs/CONFIG.md) for more on adding language servers.
+

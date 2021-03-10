@@ -8,13 +8,6 @@ set shiftwidth=4
 set smartindent "smart indent the new line
 
 
-"Define formatters for filetypes and settings 
-let g:formaters = {
-			\'javascript': [ 'prettier', '\ --use-tabs\ --stdin-filepath\ %'],
-			\'typescript': [ 'prettier', '\ --use-tabs\ --stdin-filepath\ %'],
-			\'python': ['autopep8', '\ -'],
-			\}
-
 "save and format
 function! Format()
 	if &filetype =~ 'markdown\|text\|netrw\|nerdtree' 
@@ -23,17 +16,24 @@ function! Format()
 	silent w	
 	"set mark z
 	silent normal mz
-	if has_key(g:formaters, &filetype)
+	if has_key(g:filetypes, &filetype) &&
+				\has_key(g:filetypes[&filetype], 'formater')
 		"check if formater can be executed
-		if !executable(g:formaters[&filetype][0])
+		let l:formater = g:filetypes[&filetype]['formater']
+		if !executable(l:formater[0])
 			silent execute "normal gg=Gg'zw"
-			echo 'Could not execute '.g:formaters[&filetype][0].'
+			echo 'Could not execute '.l:formater[0].'
 						\, using default indenting.'
 			return 
 		endif
 		try 
-			execute 'setlocal equalprg='.g:formaters[&filetype][0].'
-						\'.g:formaters[&filetype][1].''
+			for i in range(1, len(l:formater) - 1)
+				let l:x = join(split(l:formater[i], '\\\ '), ' ')
+				let l:x = join(split(l:x, '\ '), '\ ')
+				let l:formater[i] = '\ '.l:x
+			endfor
+			execute 'setlocal equalprg='.l:formater[0].'
+						\'.l:formater[1].''
 			silent execute "normal gg=G"
 			execute 'setlocal equalprg=""'
 			if stridx(getline('.'), 
@@ -43,13 +43,13 @@ function! Format()
 				silent undo
 				echo l:err
 			else
-				echo 'formated with '.g:formaters[&filetype][0].''
+				echo 'formated with '.l:formater[0].''
 			endif
 		catch
 			try 
 				silent undo
 				execute "normal gg=G"
-				echo 'Could not format with '.g:formaters[&filetype][0].'
+				echo 'Could not format with '.l:formater[0].'
 							\, using default indenting.'
 				return 
 			catch
