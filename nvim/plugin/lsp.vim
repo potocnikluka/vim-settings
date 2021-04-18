@@ -2,44 +2,61 @@
 "------------------------------------------------------------------------------
 "                                                                           LSP
 "==============================================================================
+" LSP servers configurations.
+"
+" Add a new server with:
+"		'lsp.server-name.setup{}'
+" Some require additional configs.
+" To add autocompletion:
+"		'lsp.server-name.setup{on_attach=completion.on_attach}'
+"
+" ** see configuration and installation guides on:
+" https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md 
+"______________________________________________________________________________
 
+lua << EOF
+local lsp = require'lspconfig'
+local completion = require'completion'
 
-lua require'lspconfig'.tsserver.setup{
-			\on_attach=require'completion'.on_attach
-			\}
-lua require'lspconfig'.pyls.setup{
-			\on_attach=require'completion'.on_attach
-			\}
-lua require'lspconfig'.jdtls.setup{
-			\on_attach=require'completion'.on_attach
-			\}
-lua require'lspconfig'.clangd.setup{
-			\on_attach=require'completion'.on_attach
-			\}
-lua require'lspconfig'.vimls.setup{
-			\on_attach=require'completion'.on_attach
-			\}
+---------------------------------------------------- typescript language server
+lsp.tsserver.setup{on_attach=completion.on_attach}
 
-"see installation guides on:
-"https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md 
+-------------------------------------------------------- python language server
+lsp.pyls.setup{on_attach=completion.on_attach}
 
-"-------------------------------------------------------------- lsp keybindings
-"jump to definition
-noremap <silent>gd :lua vim.lsp.buf.definition()<CR>
-"show info of word under cursor in popup
-noremap <silent>K :lua vim.lsp.buf.hover()<CR>
+-------------------------------------------------------- c, c++ language server
+lsp.clangd.setup{on_attach=completion.on_attach}
 
-"_________________________________________________________________ AUTOCOMPLETE
+----------------------------------------------------------- vim language server
+lsp.vimls.setup{on_attach=completion.on_attach}
 
-set shortmess+=c "Don't give ins-completion-menu messages
-set completeopt=menuone "Show completion popup with only one match
-set completeopt+=noinsert,noselect "Dont atuo insert words
+----------------------------------------------------------- lua language server
 
-"--------------------------------------------------- Scroll popup down with TAB
-inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
-"--------------------------------------------------- Scroll popup up with S-TAB
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<TAB>"
-"------------------------------------------------------------ Select with enter
-inoremap <expr><CR> pumvisible() ? "<C-y>" : "\<CR>"
-"---------------------------------------------------------- Completion priority
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+local system_name = vim.fn.substitute(vim.fn.system('uname'), '\n', '', '')
+
+--- add your path to lua-language.server ---> mine is in HOME directory
+local sumneko_root_path = vim.fn.expand('~/lua-language-server')
+local sumneko_binary = sumneko_root_path.."/bin/"
+..system_name.."/lua-language-server"
+lsp.sumneko_lua.setup {
+	on_attach=completion.on_attach;
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+        globals = {'vim'},
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+    },
+  },
+}
+EOF

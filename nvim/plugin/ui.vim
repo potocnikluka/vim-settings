@@ -1,8 +1,53 @@
 "==============================================================================
 "------------------------------------------------------------------------------
+"                                                                            UI 
+"==============================================================================
+" Coloscheme configuration, syntax highlightings, status line, tabline,...
+"______________________________________________________________________________
+
+"__________________________________________________________________ COLORSCHEME
+
+let g:gruvbox_italics=1
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_invert_selection='0'
+"____________________________________________________________ SYNTAX HIGHLIGHTS
+
+highlight GruvboxRed guifg=#CD5C5C
+highlight GruvboxBlue guifg=#9AB5AB
+highlight Normal guibg=#181818 ctermbg=000
+highlight StorageClass ctermfg=167 cterm=bold guifg=#CD5C5C gui=bold
+highlight Statement ctermfg=167 guifg=#CD5C5C gui=bold cterm=bold
+highlight Conditional ctermfg=167 guifg=#CD5C5C gui=NONE
+highlight Label ctermfg=167 guifg=#CD5C5C gui=NONE
+highlight Repeat ctermfg=167 guifg=#CD5C5C gui=NONE
+highlight Exception ctermfg=167 guifg=#fb4920 gui=NONE
+highlight Keyword ctermfg=167 guifg=#CD5C5C gui=NONE
+highlight PreProc ctermfg=167 guifg=#CD5C5C gui=NONE
+highlight Constant ctermfg=109 guifg=#9AB5AB
+highlight Type ctermfg=109 guifg=#9AB5AB gui=NONE
+highlight Identifier ctermfg=108 guifg=#9AB5AB
+highlight Number ctermfg=67 guifg=#5097A4
+highlight Float ctermfg=109 guifg=#5097A4
+highlight String ctermfg=142 guifg=#b8bb26
+highlight Special ctermfg=175 guifg=#d3869b
+highlight Character ctermfg=175 guifg=#d3869b
+highlight Boolean ctermfg=175 guifg=#d3869b
+highlight Function ctermfg=72 guifg=#689d6a gui=bold cterm=bold
+highlight PythonBuiltIn ctermfg=175 guifg=#B16286
+autocmd Syntax *
+			\ syntax match Function "\v<%(\h|\$)%(\w|\$)*>\ze\_s*\(\_.{-}\)"
+			\ containedin=CONTAINED
+"_____________________________________________ CURSOR LINE/COLUMN, COLOR COLUMN
+
+highlight CursorLine ctermbg=236 guibg=#292727 gui=bold cterm=bold
+"highlight Cursorcolumn ctermbg=236 guibg=#181818 gui=bold cterm=bold
+"highlight colorcolumn guibg=#1c1c1c
+
+let g:vimsyn_embed='lpr'
+"==============================================================================
+"------------------------------------------------------------------------------
 "                                                        STATUSLINE AND TABLINE
 "==============================================================================
-
 
 "------------------------------------------------------------ Show current mode
 let g:currentmode={
@@ -48,11 +93,14 @@ set statusline+=\ ln:\ %02l/%L
 set statusline+=\ %1*
 set statusline+=%{StatuslineGit()}
 set statusline+=%0*\ %-2n
+
+augroup Statusline
 autocmd FileType netrw\|nerdtree setlocal statusline=%0*\ %t\ %=\ %-2n
 autocmd FileType errorlist setlocal statusline=%0*\ %Y\ %=\ %-2n
 autocmd TermEnter * 
 			\setlocal statusline=%0*\ %{toupper(g:currentmode[mode()])}|
 			\setlocal statusline+=%=\ %-2m
+augroup END
 
 "----------------------------------------------------------Tabline construction
 set guitablabel=\ %t\ %M\ %N

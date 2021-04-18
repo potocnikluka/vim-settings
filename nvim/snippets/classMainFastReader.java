@@ -1,3 +1,6 @@
+Key binding: <leader>jfr
+Move cursor: 5j2w
+Code:
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

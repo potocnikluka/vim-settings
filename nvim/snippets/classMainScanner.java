@@ -1,3 +1,6 @@
+Key binding: <leader>jcms
+Move cursor: 2j2w
+Code:
 import java.util.Scanner;
 
 public class X { 
@@ -6,4 +9,3 @@ public class X {
 		sc.close();
 	}
 }
-
