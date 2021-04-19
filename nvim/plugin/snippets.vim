@@ -1,4 +1,4 @@
-"==============================================================================
+"=============================================================================
 "------------------------------------------------------------------------------
 "                                                                      SNIPPETS
 "==============================================================================
@@ -31,8 +31,7 @@ function! Snippets(args)
 	let wipe = 0
 	if win_gotoid(g:snip_info['win'])
 		if count(['save', 'save!', 'load'], a:args) == 0
-			silent! execute("bwipeout " . g:snip_info['buf'])
-			silent! execute("bwipeout " . g:snip_info['border_buf'])
+			call Close_snip_window()
 			let wipe = 1
 		endif
 	endif
@@ -112,7 +111,8 @@ function! Save_snippet(arg)
 		endif
 		set noreadonly
 		normal ggdd
-		execute("wq! " . stdpath('config') . "/snippets/" . name)
+		execute("w! " . stdpath('config') . "/snippets/" . name)
+		call Close_snip_window()
 	catch error
 		echo error
 	endtry
@@ -269,9 +269,15 @@ function! Create_popup(name, info, popup_fun)
 	highlight FloatWinBorder guifg=#87bb7c
 	call setwinvar(a:info['border_win'], '&winhl', 'Normal:FloatWinBorder')
 	call setwinvar(a:info['win'], '&winhl', 'Normal:Normal')
+	nnoremap <buffer> <silent><Esc> <cmd>call Close_snip_window()<CR>
 	if a:popup_fun != ''
 		execute("call " . a:popup_fun . "()")
 	endif
+endfunction
+
+function! Close_snip_window()
+	silent! execute("bwipeout " . g:snip_info['buf'])
+	silent! execute("bwipeout " . g:snip_info['border_buf'])
 endfunction
 
 "-------------------------------------------------- execute when creating popup
@@ -300,14 +306,6 @@ function! Get_filetype(fl)
 	endif
 	return a:fl
 endfunction
-
-"--------------------------------------------------- if only borderwin close it
-autocmd BufEnter *  
-			\ if bufnr("") == g:snip_info['border_buf'] |
-			\ if !win_gotoid(g:snip_info['win']) |
-			\ silent! execute("bwipeout! ". g:snip_info['border_buf']) |
-			\ else | wincmd p | wincmd w |
-			\ endif | endif
 
 "--------------------------------------------- auto load snippets if option = 1
 if g:load_snippets

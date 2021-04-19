@@ -1,8 +1,10 @@
 Key binding: <leader>cm
-Move cursor: 2j
+Move cursor: 4j
 Code:
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
+int main()
+{
 	return 0;
 }

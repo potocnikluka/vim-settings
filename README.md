@@ -57,7 +57,7 @@ Each file also contains additional info about the contents.
 
 #### example .config.vim file
 ```
-let g:typescript_compiler='tsc --project-tsconfig'
+let g:typescript_compiler='tsc --project tsconfig.json'
 let g:typescript_formater='prettier %'
 unlet g:typescript_execute
 
