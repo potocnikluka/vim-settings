@@ -2,12 +2,16 @@
 "they don't mess with project specific settings read from additional config
 "file in a project's directory.
 "Other configurations are gathered in 'nvim/plugin'
+"------------------------------------------------------------------------------
+
+let g:config_path=stdpath('config') "path to neovim's config directory
+let g:OS=substitute(system('uname'), '\n', '', '') "Operating system
 "==============================================================================
 "------------------------------------------------------------------------------
 "                                                                       PLUGINS
 "==============================================================================
 
-call plug#begin(''.stdpath("config").'/plugged')
+call plug#begin(g:config_path.'/plugged')
 "----------------------------------------- collection of configurations for LSP 
 Plug 'neovim/nvim-lspconfig'
 "----------------------------------------------------- autocompletion framework
@@ -29,6 +33,7 @@ set wildmenu "display matching files with tab completion
 set wildignore+=**/node_modules/** "ignore searching node modules
 set wildignore+=**/.git/** "ignore searching git folders
 set timeoutlen=500 "Shorten timeout for key combinations
+"set clipboard=unnamedplus "always copy to system clipboard when yanking
 
 "--------------------------------------------------------------------------- UI
 
@@ -53,14 +58,17 @@ set cursorline
 "set cursorcolumn
 "set colorcolumn=80
 set list "show indentline
-set listchars=tab:\¦\ 
+"use │ for indentline
+set listchars=tab:\│\ 
+"enable 256 colors if terminal does not enable it by default
+set t_Co=256
 set termguicolors
 
 "------------------------------------------------------------------ SAVE / UNDO
 set noswapfile "Load buffers without creating swap files
 set nobackup "Do not automatically save
 set undofile "Allow undo after reoppening the file
-execute 'set undodir='.stdpath("config").'/undo'
+execute 'set undodir='.g:config_path.'/undo'
 
 "-------------------------------------------------------------------- INDENTING
 set tabstop=4 softtabstop=4 "set tab width
@@ -107,3 +115,6 @@ let g:typescript_formater="prettier --use-tabs %"
 
 let g:javascript_interpreter="node %:p"
 let g:javascript_formater="prettier --use-tabs %"
+
+"------------------------------------------------------------------------ OTHER
+let g:errorlist_size = 80

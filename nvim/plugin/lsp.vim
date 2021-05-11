@@ -32,8 +32,7 @@ lsp.vimls.setup{on_attach=completion.on_attach}
 
 ----------------------------------------------------------- lua language server
 
-local system_name = vim.fn.substitute(vim.fn.system('uname'), '\n', '', '')
-
+local system_name = vim.g['config_path']
 --- add your path to lua-language.server ---> mine is in HOME directory
 local sumneko_root_path = vim.fn.expand('~/lua-language-server')
 local sumneko_binary = sumneko_root_path.."/bin/"

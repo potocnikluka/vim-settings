@@ -52,7 +52,7 @@ function! Show_snippets()
 	call Create_popup('SNIPPETS', g:snip_info, 'On_snip_popup')
 	set bufhidden=wipe
 	set noreadonly
-	let text = globpath(',', stdpath('config') . '/snippets/*')
+	let text = globpath(',', g:config_path . '/snippets/*')
 	for i in split(text, '\n')
 		let i = split(i, '/')[-1]
 		if Valid_snippet(i)
@@ -87,8 +87,8 @@ function! Save_snippet(arg)
 		if bufnr("") != g:snip_info['buf']
 			return
 		endif
-		if !isdirectory(stdpath('config') . '/snippets')
-			echo "Please create " . stdpath('config') . "/snippets directory"
+		if !isdirectory(g:config_path . '/snippets')
+			echo "Please create " . g:config_path . "/snippets directory"
 			return
 		elseif getline(2) == 'Name:' || getline(1) == 'Name: '
 			echo "Please provide a file name"
@@ -105,13 +105,13 @@ function! Save_snippet(arg)
 			let name = split(getline(2), 'Name:')
 		endif
 		let name = name[0]
-		if filereadable(stdpath('config') . '/snippets/'.name) && a:arg == 'save'
+		if filereadable(g:config_path . '/snippets/'.name) && a:arg == 'save'
 			echo "File already exists, add ! to override."
 			return
 		endif
 		set noreadonly
 		normal ggdd
-		execute("w! " . stdpath('config') . "/snippets/" . name)
+		execute("w! " . g:config_path . "/snippets/" . name)
 		call Close_snip_window()
 	catch error
 		echo error
@@ -120,7 +120,7 @@ endfunction
 
 "------------------------------- load the snippets for pasting with key binding
 function! Load_snippets()
-	let text = globpath(',', stdpath('config') . '/snippets/*')
+	let text = globpath(',', g:config_path . '/snippets/*')
 	for i in split(text, '\n')
 		let i = split(i, '/')[-1]
 		if Valid_snippet(i)
@@ -214,7 +214,7 @@ endfunction
 "------------------------------------------- check if string is a valid snippet
 function! Valid_snippet(snip)
 	try
-		let content = readfile(stdpath('config') . '/snippets/' . a:snip)
+		let content = readfile(g:config_path . '/snippets/' . a:snip)
 	catch
 		return 0
 	endtry
