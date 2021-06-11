@@ -4,8 +4,6 @@
 "==============================================================================
 " Config for vim's default file browser netrw.
 "
-" To change default settings add variables to 'init.vim' under 'VARIABLES'.
-"
 " All remappings are in 'remappings.vim'.
 " _____________________________________________________________________________
 

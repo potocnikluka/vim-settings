@@ -1,9 +1,6 @@
-"'init.vim' contains plugins, basic settings and all important variables, so
-"they don't mess with project specific settings read from additional config
-"file in a project's directory.
+"'init.vim' contains plugins, basic settings
 "Other configurations are gathered in 'nvim/plugin'
 "------------------------------------------------------------------------------
-
 let g:config_path=stdpath('config') "path to neovim's config directory
 let g:OS=substitute(system('uname'), '\n', '', '') "Operating system
 "==============================================================================
@@ -16,6 +13,8 @@ call plug#begin(g:config_path.'/plugged')
 Plug 'neovim/nvim-lspconfig'
 "----------------------------------------------------- autocompletion framework
 Plug 'nvim-lua/completion-nvim'
+"-------------------- async prog running, formating, snippets, ...
+Plug 'potocnikluka/collection-nvim'
 call plug#end()
 
 "==============================================================================
@@ -79,42 +78,3 @@ set smartindent "smart indent the new line
 set shortmess+=c "Don't give ins-completion-menu messages
 set completeopt=menuone "Show completion popup with only one match
 set completeopt+=noinsert,noselect "Dont atuo insert words
-
-"==============================================================================
-"------------------------------------------------------------------------------
-"                                                                     VARIABLES
-"==============================================================================
-
-"-------------------------------------------------------------------- FILETYPES
-"compiler format -> '<compiler-name> <path> <additional-options>'
-"interpreter format -> '<interpreter-name> <path> <additional-options>'
-"formater format -> '<formater-name> <path> <additional-options>'
-"execute -> optional command used after compiling 
-"(ex. run the prog. after successful compiling)
-
-"** paths should be given unexpanded see `:h expand`
-"extension can be changed for unexpanded paths (%:p:r.new_extension)
-"example: %:p -> ~/test.vim, %:p:r.txt -> ~/test.txt
-
-
-let g:python_interpreter="python3 %:p"
-let g:python_formater="autopep8 %"
-
-let g:c_compiler="gcc %:p -o %:p:r -std=c99 -Wall -pedantic"
-let g:c_execute="%:p:r"
-
-let g:cpp_compiler="g++ %:p -o %:p:r -std=c++98 -Wall -pedantic"
-let g:cpp_execute="%:p:r"
-
-let g:cs_compiler="csc %:p"
-let g:cs_execute="mono %:p:r.exe"
-
-let g:typescript_compiler="tsc %:p"
-let g:typescript_execute="node %:p:r.js"
-let g:typescript_formater="prettier --use-tabs %"
-
-let g:javascript_interpreter="node %:p"
-let g:javascript_formater="prettier --use-tabs %"
-
-"------------------------------------------------------------------------ OTHER
-let g:errorlist_size = 80
