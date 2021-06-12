@@ -35,8 +35,8 @@ nnoremap <silent><leader>f <cmd>call Format()<CR>
 "Open snippets window with leader + q, load snippets with leader + l
 "Create new snippet with :Sn(ippets) name.filetype
 command! -nargs=* Snippets call Snippets(<q-args>)
-nnoremap <leader>q <cmd>Snippets<CR>
-nnoremap <leader>l <cmd>Snippets load<CR>
+nnoremap <leader>q <cmd>call Snippets('')<CR>
+nnoremap <leader>l <cmd>call Snippets('load')<CR>
 
 "------------------------------------------------------------------------ NETRW
 "toggle netrw explorer in side split with Ctrl + n
@@ -69,12 +69,7 @@ nnoremap <leader>w <cmd>wincmd w<CR>
 "open new vertical window with leader + v
 nnoremap <leader>v <cmd>vertical new<CR>
 "Yank selected text to system clipboard with Ctrl + C
-function! X()
-	yank
-	let @+=@"
-	echo 'Yanked to system clipboard'
-endfunction
-vnoremap <C-c> <cmd>call X()<CR>
+nnoremap <C-c> <cmd>let @+=@"<CR>
 "misstyping uppercase Q or W instead of lowercase and getting error is
 " frustrating
 command -bang Q q
