@@ -33,3 +33,6 @@ let g:collection_typescript_formater="prettier --use-tabs %"
 
 let g:collection_javascript_interpreter="node %:p"
 let g:collection_javascript_formater="prettier --use-tabs %"
+
+let g:collection_java_compiler="javac %:p"
+let g:collection_java_execute="java %:p:r"

@@ -9,7 +9,7 @@
 
 "------------------------------------------------------------- default settings
 if !exists('g:netrw_open_on_start')
-	let g:netrw_open_on_start=0
+	let g:netrw_open_on_start=1
 	"1 -> auto open netrw when oppening a directory
 endif
 if !exists('g:netrw_disable')
